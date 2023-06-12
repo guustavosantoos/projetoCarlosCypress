@@ -1,3 +1,5 @@
+import loc from '../support/locators'
+import realizandoLogin from '../support/commands'
 
 describe('login', () => {
 
@@ -9,20 +11,20 @@ describe('login', () => {
     })
 
 
-    it.only('Efetuando o login válido', () => {
+    it('Efetuando o login válido', () => {
 
         cy.contains('Faça Login na sua Conta')
             .should('have.text', 'Faça Login na sua Conta');
 
         // Entrando na aplicação
         // EMAIL / SENHA VÁLIDOS
-        cy.get('[name="email"]')
+        cy.get(loc.DADOS_PESSOAIS.EMAIL)
             .type('carlos@teste.com');
-        cy.get('[name="password"]')
+        cy.get(loc.DADOS_PESSOAIS.SENHA)
             .type('123', { log: false });
 
         // Click LOGIN
-        cy.get('[type="submit"]')
+        cy.get(loc.AÇÕES.btn_login)
             .click();
 
         // Verificar se logou corretamente se está na página do "DASBOARD".    
@@ -36,13 +38,13 @@ describe('login', () => {
             .should('have.text', 'Faça Login na sua Conta')
 
         // Tentando efetuar o login com o email inválido
-        cy.get('[name="email"]')
+        cy.get(loc.DADOS_PESSOAIS.EMAIL)
             .type('gustavo@teste.com');
 
-        cy.get('[name="password"]')
+        cy.get(loc.DADOS_PESSOAIS.SENHA)
             .type('123');
 
-        cy.get('[type="submit"]')
+        cy.get(loc.AÇÕES.btn_login)
             .click();
 
         // Mensagem de erro que deve ser exibido

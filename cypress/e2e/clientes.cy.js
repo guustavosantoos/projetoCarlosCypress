@@ -12,16 +12,16 @@ describe('clientes', () => {
         cy.realizarLogin();
     });
 
-    it('Visualizar a página de clientes', () => {
+    it.only('Visualizar a página de clientes', () => {
 
         // Abrindo a seção de opções
-        cy.get('[class="bi bi-list toggle-sidebar-btn"]')
+        /* cy.get('[class="bi bi-list toggle-sidebar-btn"]')
             .click();
 
         // Selecionado a opção de 'Clientes'
         cy.get('[class="bi bi-list toggle-sidebar-btn"]')
             .click();
-
+        */
         cy.get('[class="nav-link collapsed"]')
             .first()
             .click()
@@ -33,7 +33,7 @@ describe('clientes', () => {
 
     });
 
-    it.only('Visualizar detalhes de uma cliente', () => {
+    it('Visualizar detalhes de uma cliente', () => {
         cy.acessarClientes()
 
         // Acessando os detalhes do cliente 'Dados Gerais'
