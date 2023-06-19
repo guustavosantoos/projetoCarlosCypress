@@ -12,16 +12,8 @@ describe('clientes', () => {
         cy.realizarLogin();
     });
 
-    it.only('Visualizar a página de clientes', () => {
+    it.only('Visualizar informações de um cliente', () => {
 
-        // Abrindo a seção de opções
-        /* cy.get('[class="bi bi-list toggle-sidebar-btn"]')
-            .click();
-
-        // Selecionado a opção de 'Clientes'
-        cy.get('[class="bi bi-list toggle-sidebar-btn"]')
-            .click();
-        */
         cy.get('[class="nav-link collapsed"]')
             .first()
             .click()
@@ -30,16 +22,29 @@ describe('clientes', () => {
         cy.get('[class="text-dark"]')
             .should('have.text', 'Clientes')
 
+        // Campo para buscar por nome do cliente
+        cy.get('[name="fantasy_name"]')
+            .type('Cremin-West', {force:true})
 
-    });
-
-    it('Visualizar detalhes de uma cliente', () => {
-        cy.acessarClientes()
-
-        // Acessando os detalhes do cliente 'Dados Gerais'
-        cy.get('[class="bi bi-eye"]')
+        // Clicar em 'Pesquisar'
+        cy.get('[class="btn btn-secondary btn-sm"]')
             .first()
+            .click({force:true})
+
+        // Verificando se o resultado foi o mesmo 
+        // do nome pesquisado
+        cy.xpath('//*[@id="main"]/section[3]/div/div/div/div/div/div/div/table/tbody/tr/td[2]')
+            .should('have.text', 'Cremin-West')
+
+        // Abrindo os detalhes do cliente
+        cy.get('[class="btn btn-secondary btn-sm"]')
+            .last()
             .click()
+
+        // Verificando se está na página de informações do cliente 
+        cy.get('[class="card-title"]')
+            .first()
+            .should('have.text', 'Informações')
 
         // Contatos
         cy.get('[class="nav-link"]')
@@ -62,6 +67,14 @@ describe('clientes', () => {
             .wait(2000)
     });
 
+    it('Adicionando novo cliente na lista', () => {
+    
+    
+    
+    
+    }); 
+    
+    
     afterEach(() => {
         // Commando para sair da conta no final do cenário
         cy.logout();

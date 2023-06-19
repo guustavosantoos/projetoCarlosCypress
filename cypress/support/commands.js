@@ -1,3 +1,7 @@
+import 'cypress-xpath';
+
+
+
 Cypress.Commands.add('realizarLogin', login => {
 
     // Validando se está na página de login
