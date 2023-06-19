@@ -1,4 +1,8 @@
-import realizarLogin from '../support/commands'
+import realizarLogin from '../support/commands';
+import { faker } from '@faker-js/faker';
+
+const phoneNumber   = faker.phone.number();
+const rame          = faker.company.buzzPhrase();
 
 describe('clientes', () => {
 
@@ -12,7 +16,7 @@ describe('clientes', () => {
         cy.realizarLogin();
     });
 
-    it.only('Visualizar informações de um cliente', () => {
+    it('Visualizar informações de um cliente', () => {
 
         cy.get('[class="nav-link collapsed"]')
             .first()
@@ -67,11 +71,47 @@ describe('clientes', () => {
             .wait(2000)
     });
 
-    it('Adicionando novo cliente na lista', () => {
+    it.only('Adicionando novo cliente na lista', () => {
+        
+        cy.acessarClientes()
+
+        // btn Cadastra novo cliente
+        cy.get('[class="btn btn-primary"]')
+            .click({force:true})
     
+        // Verificar se está na página correta 
+        // 'Dados Gerais'
+        cy.get('[class="card-title"]')
+            .should('be.visible')
+        
+        // Selecionando o Tipo de Cliente
+        cy.get('[class="form-select"][name="customer_type"]')
+            .select('Pessoa Fisíca', {force:true})
     
-    
-    
+        // Status
+        cy.get('[name="status"]')
+            .select('Ativo', {force:true})
+
+        // CNPJ
+        cy.get('[name="cnpj"]')
+            .type('96.368.137/0001-72', {force:true})
+
+        // Nome
+        cy.get('[name="fantasy_name"]')
+            .type('Teste Company', {force:true})
+
+        // Razão Social
+        cy.get('[name="corporate_name"]')
+            .type('Testing LTDA', {force:true})
+
+        // Inscrição Stadual
+        cy.get('[name="state_registration"]')
+            .type('SSP', {force:true})
+
+        // Ramo de atividades
+        cy.get('[name="line_of_business"]')
+            .type('Tecnology', {force:true})
+
     }); 
     
     
